@@ -1,0 +1,99 @@
+/*body{
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:14px;
+	color:#333;
+	background-color:#fff
+}*/
+
+.outertiles{
+	position: relative;
+	padding-bottom: 100px;
+}
+
+.staticoverlay 
+{
+	position: absolute;
+	/*color: transparent;*/
+	top: 0px;
+	bottom: 100px;
+	right: 0px;
+	left: 0px;
+	background: transparent url("../images/static.gif") repeat top left;
+	z-index: 1;
+	opacity: 0.1;
+}
+
+.tileheading
+{
+	position: relative;
+
+	/*vertical-align: middle;
+	margin: auto;*/
+
+	font-family: Impact, fantasy;
+	text-align: center;
+	vertical-align: middle;
+	color: white;
+	text-shadow: 2px 2px #000000;
+	font-size: 30px;
+
+	z-index: 3;
+}
+
+.tileheading>a{
+	text-decoration: none;
+	padding: 0.1em;
+	color: white;
+	cursor: pointer;
+}
+
+.tileheading>a:hover{
+	text-decoration: underline;
+}
+
+.smalltile{
+    background-size: cover;
+    background-position-x: 50%;
+    background-position-y: 50%;
+
+	position: relative;
+	display: inline-block;
+	width: 33.33%;
+	height: 300px;
+	margin: 0px;
+	text-align: center;
+	font-size: 30px;
+	vertical-align: middle;
+}
+
+.bigtile
+{
+	/*position: absolute;*/
+	color: transparent;
+	width: 100%;
+	height: 600px;
+	margin: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 50px;
+}
+
+.tilefooter {
+	position: relative;
+	/*bottom: 0px;
+	left: 0px;
+	right: 0px;
+	*/
+	z-index: 3;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+	background: rgb(0, 0, 0); 
+	background: rgba(0, 0, 0, 0.5); 
+
+	font-weight: bold;
+	font-size: 16px;
+	text-align: center;
+	vertical-align: middle;
+	color: white;
+}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+
+<script src="./scripts/jquery.min.js"></script>
+<script src="./scripts/modernizr-custom.js"></script>
+<script src="./scripts/dothtml.js"></script>
+<script src="./scripts/dotcss.js"></script>
+<script src="./scripts/dothtml.ui.js"></script>
+<script src="./scripts/Sequencr.js"></script>
+<script src="./scripts/bootstrap.grid.js"></script>
+
+<script src="./scripts/mywidgets.js"></script>
+<script src="./scripts/sidemenu.js"></script>
+<script src="./scripts/videoplayer.js"></script>
+<script src="./scripts/logoapi.js"></script>
+
+<script src="./tabs/maintab.js"></script>
+<script src="./tabs/automationtab.js"></script>
+<script src="./tabs/webtab.js"></script>
+<script src="./tabs/startupstab.js"></script>
+<script src="./tabs/productstab.js"></script>
+<script src="./tabs/worktab.js"></script>
+<script src="./tabs/freetab.js"></script>
+<script src="./tabs/hiretab.js"></script>
+
+<script src="./scripts/emblems/cityguardlogo.js"></script>
+<script src="./scripts/emblems/dotcsslogo.js"></script>
+<script src="./scripts/emblems/dothtmllogo.js"></script>
+<script src="./scripts/emblems/jsiderislogo.js"></script>
+<script src="./scripts/emblems/minimalogo.js"></script>
+
+<link rel="stylesheet" type="text/css" href="./styles/style.css" />
+<link rel="stylesheet" type="text/css" href="./styles/dothtml.ui.css" />
+<link rel="stylesheet" type="text/css" href="./styles/grid100.css" />
+<link href="./styles/maintab.css" type="text/css" rel="stylesheet">
+<link href="./styles/SideMenu.css" type="text/css" rel="stylesheet">
+
+<body>
+</body>
+
+<script>
+
+	dot("body")
+	.div(
+		
+		dot.div(
+			dot.tabmenubtn("Main", "main")
+		).class("menu-border-box responsive-nowrap-element responsive-nowrap-container")
+		.div(
+			dot.div("SERVICES").class("labeled-menu-border-box-caption")
+			.tabmenubtn("Process Automation", "automation")
+			.tabmenubtn("Web App Development", "web")
+			.tabmenubtn("Startup Consulting", "startups")
+		).class("menu-border-box labeled-menu-border-box border-yellow responsive-nowrap-element responsive-nowrap-container")
+		.div(
+			dot.div("ABOUT US").class("labeled-menu-border-box-caption")
+			.tabmenubtn("Products", "products")
+			.tabmenubtn("Our Work", "work")
+			//.tabmenubtn("Free Stuff", "free")
+			.tabmenubtn("Hire Us", "hire")
+		).class("menu-border-box labeled-menu-border-box border-red responsive-nowrap-element responsive-nowrap-container")
+	).id("main-menu").class("responsive-nowrap-container").style(dotcss.position("relative").verticalAlign("middle").zIndex(2))
+	.div([
+		dot.maintab(),
+		dot.automationtab(),
+		dot.webtab(),
+		dot.startupstab(),
+		dot.productstab(),
+		dot.worktab(), //dot.tabcontent("work", dot),
+		//dot.freetab(),
+		dot.hiretab()
+	]).id("main-content")
+
+	.myfooter()
+	.sidemenu()
+	.fsvideoplayer(); //This will be hidden.
+
+	function resizeHandler(){
+		if(window.innerWidth < 800){
+			$(".responsive-nowrap-element").removeClass("responsive-nowrap-element").addClass("responsive-yeswrap-element");
+			$(".responsive-nowrap-container").removeClass("responsive-nowrap-container").addClass("responsive-yeswrap-container");
+		}
+		else{
+			$(".responsive-yeswrap-element").removeClass("responsive-yeswrap-element").addClass("responsive-nowrap-element");
+			$(".responsive-yeswrap-container").removeClass("responsive-yeswrap-container").addClass("responsive-nowrap-container");
+		}
+	}
+
+	function loadTab(newHash, scrollToTop){
+		//var hash = window.location.hash
+		if(!newHash) newHash = "main";
+
+		$(".tab-selected").hide().removeClass("tab-selected").addClass("tab-hidden");
+		$("#content-" + newHash).show().removeClass("tab-hidden").addClass("tab-selected");
+
+		$(".menu-button-selected").removeClass("menu-button-selected");
+		$("#tab-" + newHash).addClass("menu-button-selected");
+
+		/*if(newHash == "main"){
+			window.location.hash = ""; //Problem with this is that it leaves a # in the url. Might as well leave it as "#main".
+		}
+		else */
+		if(!(window.location.hash == "" && newHash == "main")) {
+			window.location.hash = newHash;
+			if(scrollToTop){
+				window.scrollTo(0, 0);
+			}
+		} //Otherwise the page just loaded and we don't need a hash.
+	}
+	if(window.location.hash) loadTab(window.location.hash.substring(1));
+	else loadTab(null);
+
+	var resizeLock = false;
+	window.addEventListener("resize", function(){
+		//console.log(window.innerWidth);
+		if(resizeLock) return;
+		resizeLock = true;
+		setTimeout(function(){
+			resizeHandler();
+			resizeLock = false;
+		}, 100);
+	});
+	window.addEventListener("load", function(){
+		resizeHandler();
+	});
+
+	$(function () {
+
+		AttachMenuScrollListener(window);
+		$("#sidemenu").scroll(function (event) {
+			var delta = $("#sidemenu").scrollTop();
+			if (delta > 40) {
+				$(".sidemenuclosebutton").hide({ direction: 'left' });
+			} else {
+				$(".sidemenuclosebutton").show({ direction: 'right' });
+			}
+		});
+
+		EnableLargerMainMenuButtons();
+		var resizeTimeout, mobileMode = false;
+		$(window).resize(function () {
+			// window.resize fires too rapidly for our liking
+			// use clear-set timeout approach
+			if (resizeTimeout) {
+				window.clearTimeout(resizeTimeout);
+			}
+			resizeTimeout = window.setTimeout(function () {
+				var windowWidth = $(window).width();
+				// sortedReverse flag is used to ensure that
+				// we do not reverse the list unnecessarily
+				if (windowWidth < 900 && !mobileMode) {
+					$(".outertiles").height(1200);
+					$(".smalltile").addClass("smallscreendiv");
+					mobileMode = true;
+				}
+				else if (windowWidth >= 900 && mobileMode) {
+
+					$(".smalltile").removeClass("smallscreendiv");
+					$(".outertiles").height(900);
+					mobileMode = false;
+				}
+			}, 100);
+		}).trigger("resize");
+	});
+
+
+	//Emblems:
+	var freeStuffDotLogo = dothtmlLogo("#dothtmllogopreview");
+	freeStuffDotLogo.play();
+	var freeStuffDotcssLogo = dotcssLogo("#dotcsslogopreview");
+	freeStuffDotcssLogo.play();
+	/*function animStep(timestamp){
+
+		window.requestAnimationFrame(animStep);
+	}
+	window.requestAnimationFrame(animStep);*/
+
+</script>
+
+</html>
