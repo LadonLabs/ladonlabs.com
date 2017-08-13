@@ -1,4 +1,4 @@
-automatedLineHeight = 68;
+var automatedLineHeight = 68;
 var automationListInit = [
 	"accounting",
 	"computer vision",
@@ -41,8 +41,8 @@ dot.createWidget("automationtab", function(){
 								.top(i === 0 || Modernizr.csstransforms3d ? automatedLineHeight : 0)
 								.opacity(i === 0 || Modernizr.csstransforms3d ? 1 : 0)
 								.lineHeight(automatedLineHeight)
-								//.transformOrigin("0, 0, -50px")
-								.transform(Modernizr.csstransforms3d ? "rotateX(90deg) translateZ(" + automatedLineHeight/2 + "px)" : "none")
+								.transformOrigin("50% 50% -34px") //TODO: fix probelm with dotcss that was causing this to not render properly.
+								.transform(Modernizr.csstransforms3d ? "rotateX(90deg)"/* translateZ(" + automatedLineHeight/2 + "px)"*/ : "none")
 							);
 					})
 				).style(dotcss.position("absolute").top(476 - automatedLineHeight).right(0).widthP(50).overflow("hidden").textAlign("left").paddingLeft(10).fontSize(automatedLineHeight * 3 / 4).height(automatedLineHeight * 3))
@@ -126,9 +126,9 @@ function animateNextAutomation(){
 		dotcss("#automated-" + lastAnimateAutomationIndex).fadeOut(500).top.animate(automatedLineHeight*2, 500, "exponential");
 	}
 	else{
-		dotcss("#automated-" + animateAutomationIndex).transform("rotateX(90deg) translateZ(" + automatedLineHeight/2 + "px)");
-		dotcss("#automated-" + animateAutomationIndex)./*fadeIn(500).*/transform.animate("rotateX(0deg) translateZ(" + automatedLineHeight/2 + "px)", 500, "exponential");
-		dotcss("#automated-" + lastAnimateAutomationIndex)./*fadeOut(500).*/transform.animate("rotateX(-90deg) translateZ(" + automatedLineHeight/2 + "px)", 500, "exponential");
+		dotcss("#automated-" + animateAutomationIndex).transform("rotateX(90deg)"/* translateZ(" + automatedLineHeight/2 + "px)"*/);
+		dotcss("#automated-" + animateAutomationIndex)./*fadeIn(500).*/transform.animate("rotateX(0deg)"/* translateZ(" + automatedLineHeight/2 + "px)"*/, 500, "exponential");
+		dotcss("#automated-" + lastAnimateAutomationIndex)./*fadeOut(500).*/transform.animate("rotateX(-90deg)"/* translateZ(" + automatedLineHeight/2 + "px)"*/, 500, "exponential");
 	}
 	lastAnimateAutomationIndex = animateAutomationIndex;
 	animateAutomationIndex = (animateAutomationIndex + 1) % automationList.length;
