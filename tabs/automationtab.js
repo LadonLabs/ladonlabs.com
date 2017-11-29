@@ -9,6 +9,7 @@ var automationListInit = [
 	"decision making",
 	"fraud detection",
 	"inventory management",
+	"leads",
 	"notifications",
 	"object detection",
 	"object tracking",

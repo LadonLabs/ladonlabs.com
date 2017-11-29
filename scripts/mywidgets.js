@@ -120,11 +120,15 @@ dot.createWidget("websitepreview", function(link, img){
 
 dot.createWidget("logopreview", function(title, info, logoApiObj){
 	var newLogo = null;
+	var hasBeenClicked = false;
 	var ret = dot.div("CLICK").style(dotcss.cursor("pointer").display("inline-block").widthP(50).height(400).verticalAlign("top").fontSize(48)).onclick(function(){
-		if(el.innerHTML == "CLICK"){ el.innerHTML = ""; }
-		if (!newLogo) newLogo = logoApiObj(el);
-		newLogo.redraw();
-		newLogo.play();
+		if(!hasBeenClicked){
+			hasBeenClicked = true;
+			el.innerHTML = "";
+			if (!newLogo) newLogo = logoApiObj(el);
+			newLogo.redraw();
+			newLogo.play();
+		}
 	});
 	var el = ret.getLast();
 	setTimeout(function(){

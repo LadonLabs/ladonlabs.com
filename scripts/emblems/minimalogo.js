@@ -25,9 +25,9 @@ MinimaLogo.animation = function(e, dot, dotcss){
 	if(!e.playing && e.emblem.animate){ //lock
 		e.playing = true;
 
-		if(e.lastWidth && e.lastWidth != e.emblem.outerNode.offsetWidth){
+		/*if(e.lastWidth && e.lastWidth != e.emblem.outerNode.offsetWidth){
 			e.emblem.resize();
-		}
+		}*/
 		e.lastWidth = e.emblem.outerNode.offsetWidth;
 
 		var mul = e.element.offsetWidth / 485.3;
